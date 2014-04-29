@@ -111,8 +111,8 @@ class Tafel {
         $query = 'UPDATE tafel
             SET tafelnummer = '.$this->tafelnummer.',
                 plaatsen = '.$this->aantalPlaatsen.',
-                plaatsen = '.$this->restaurantId.',
-                plaatsen = '.$this->ownerId.'
+                restaurantid = '.$this->restaurantId.',
+                ownerid = '.$this->ownerId.'
             WHERE id = '.$this->id;
         $db->conn->query($query);
     }

@@ -73,6 +73,8 @@
                 <a href="edit_restaurant.php?id=<?=$restaurant['id']?>">Restaurant gegevens aanpassen</a>
                 <a href="tafel.php?id=<?=$restaurant['id']?>">Tafels toevoegen</a>
                 <a href="edit_tafel.php?id=<?=$restaurant['id']?>">Tafels aanpassen</a>
+                <a href="show_menu.php?id=<?=$restaurant['id']?>">Menu tonen</a>
+                <a href="create_menu.php?id=<?=$restaurant['id']?>">Menu toevoegen</a>
             </div>
     <?php
         }

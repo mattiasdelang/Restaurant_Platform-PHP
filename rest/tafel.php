@@ -20,16 +20,6 @@ if(!isset($_SESSION["login"]))
 
 }
 
-if(!empty($_POST["go"]))
-{
-
-    $tafels = array();
-    for($i = 0; $i < $_POST['aantal']; $i++) {
-        $tafels[] = new Tafel();
-    }
-
-}
-
 if(!empty($_POST["aanmaken"]))
 {
     foreach ($_POST['tafelnr'] as $index => $tafelnummer) {
@@ -42,9 +32,10 @@ if(!empty($_POST["aanmaken"]))
         $tafel->setRestaurantId($restaurantId);
         $tafel->save();
 
-        header('Location: index.php');
-        exit;
+
     }
+    header('Location: index.php');
+    exit;
 }
 
 ?>

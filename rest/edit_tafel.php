@@ -36,10 +36,10 @@ if (isset($_POST['aanpassen'])){
         $gevonden = false;
         $i = 0;
 
-        $tafel = null;
-        while(!$gevonden && $tafel = $tafels[$i]){
+        $tafelgegevens = null;
+        while(!$gevonden && $tafelgegevens = $tafels[$i]){
             $i++;
-            if ($tafel->getId() == $tafelId) {
+            if ($tafelgegevens['id'] == $tafelId) {
                 $gevonden = true;
             }
         }
@@ -48,6 +48,8 @@ if (isset($_POST['aanpassen'])){
 
         }
 
+        $tafel = new Tafel();
+        $tafel->setId($tafelId);
         $tafel->setTafelnummer($tafelnummer);
         $tafel->setAantalPlaatsen($aantalPlaatsen);
         $tafel->setOwnerId($_SESSION['login']['id']);
