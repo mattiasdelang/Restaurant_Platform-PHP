@@ -117,12 +117,12 @@ class Tafel {
         $db->conn->query($query);
     }
 
-    private function delete()
+    public function delete($id)
     {
         $db = new db;
         $query = 'UPDATE tafel
             SET tafelshow = 0
-         WHERE id = '.$this->id;
+         WHERE id = '.$id;
         $db->conn->query($query);
     }
 }

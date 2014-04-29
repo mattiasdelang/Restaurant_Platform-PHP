@@ -70,8 +70,10 @@
                 <strong>zaterdag: </strong> <?=$restaurant['zaterdag']?><br>
                 <strong>zondag: </strong><?=$restaurant['zondag']?><br>
                 <a href="remove_restaurant.php?id=<?=$restaurant['id']?>">Verwijder dit restaurant</a>
-                <a href="tafel.php?id=<?=$restaurant['id']?>">Tafels</a>
-                <a href="edit_restaurant.php?id=<?=$restaurant['id']?>">Restaurant gegevens aanpassen</a></div>
+                <a href="edit_restaurant.php?id=<?=$restaurant['id']?>">Restaurant gegevens aanpassen</a>
+                <a href="tafel.php?id=<?=$restaurant['id']?>">Tafels toevoegen</a>
+                <a href="edit_tafel.php?id=<?=$restaurant['id']?>">Tafels aanpassen</a>
+            </div>
     <?php
         }
     }

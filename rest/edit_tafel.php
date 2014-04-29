@@ -11,19 +11,21 @@ include_once("classes/restaurant.class.php");
 include_once("classes/tafel.class.php");
 include_once("classes/db.class.php");
 
-$restaurantId = $_GET['id'];
-$t = new Tafel;
-
-$tafels = array();
-while($tafel =  $t->getByRestaurantId($restaurantId)->fetch_array()){
-    $tafels[] = $tafel;
-}
-
-
 if(!isset($_SESSION["login"])){
     header("Location:login.php");
     exit;
 }
+
+$restaurantId = $_GET['id'];
+$t = new Tafel;
+
+$tafels = array();
+
+$dbtafels = $t->getByRestaurantId($restaurantId);
+while($tafel = $dbtafels->fetch_array()){
+    $tafels[] = $tafel;
+}
+
 
 if (isset($_POST['aanpassen'])){
     foreach ($_POST['tafelnr'] as $index => $tafelnummer) {
@@ -36,6 +38,7 @@ if (isset($_POST['aanpassen'])){
 
         $tafel = null;
         while(!$gevonden && $tafel = $tafels[$i]){
+            $i++;
             if ($tafel->getId() == $tafelId) {
                 $gevonden = true;
             }
@@ -68,6 +71,9 @@ if (isset($_POST['aanpassen'])){
 
 <h1>Tafels aanpassen</h1>
 <div id="tafels">
+    <?php
+    if(count($tafels) > 0):
+    ?>
     <form action="" method="post">
         <?php
         foreach($tafels as $tafel):
@@ -75,13 +81,20 @@ if (isset($_POST['aanpassen'])){
             <input type="hidden" name="tafelid[]" value="<?=$tafel['id']?>" />
             <input type="number" name="tafelnr[]" value="<?=$tafel['tafelnummer']?>" placeholder="Tafelnummer" required />
             <input type="number" name="plaatsen[]" value="<?=$tafel['plaatsen']?>" placeholder="Aantal plaatsen" required/>
-            <a href="remove_tafel.php?id=<?=$tafel['id']?>" target="_blank">Verwijder</a>
+            <a href="remove_tafel.php?id=<?=$tafel['id']?>">Verwijder</a>
             <br>
         <?php
         endforeach;
         ?>
         <input type="submit" name="aanpassen" value="Aanpassen">
     </form>
+    <?php
+    else:
+    ?>
+        Er zijn geen tafels gevonden.
+    <?php
+    endif;
+    ?>
 </div>
 </body>
 </html>
