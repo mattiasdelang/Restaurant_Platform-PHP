@@ -34,7 +34,9 @@
 				$r->Restzo = $_POST["zon"];
 				$r->Restownerid = $_SESSION["login"]["id"];
 				$r->Save();
-				
+
+                header('Location: index.php');
+                exit;
 			}
 			catch (Exception $e)
 			{

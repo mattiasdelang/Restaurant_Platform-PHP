@@ -22,8 +22,26 @@ class Restaurant
 	private $m_sRestzo;
 	private $m_sRestownerid;
 
-	
-	
+    /**
+     * Gaat de restaurant-gegevens ophalen uit de databank
+     * @param $id
+     * @return array
+     */
+    public function getById($id)
+    {
+        $db = new db;
+        $query = 'SELECT * FROM restaurant WHERE id = '.$id;
+        return $db->conn->query($query)->fetch_array();
+    }
+
+    public function getByOwnerId($ownerId)
+    {
+        $db = new db;
+        $query = 'SELECT * FROM restaurant WHERE restaurantownerid = '.$ownerId;
+        return $db->conn->query($query);
+    }
+
+
 	public function __set($p_sProperty, $p_vValue)
 			{
 				switch($p_sProperty)
@@ -183,8 +201,10 @@ class Restaurant
 
 		public function Save()
 		{
-			$db = new Db();
-			$sql = "insert into restaurant (naam,adres,gemeente,specialiteit,website,facebook,mail,telnr,
+            if (empty($this->m_sRestid)) {
+                // create
+                $db = new Db();
+                $sql = "insert into restaurant (naam,adres,gemeente,specialiteit,website,facebook,mail,telnr,
 					maandag,dinsdag,woensdag,donderdag,vrijdag,zaterdag,zondag,restaurantownerid) values(
 					'".$this->m_sRestname."',
 					'".$this->m_sRestadres."',
@@ -204,16 +224,27 @@ class Restaurant
 					".$this->m_sRestownerid."
 					);";
 
-			$db->conn->query($sql);
-			
-			
-			header("refresh:2;url=index.php");
-			
+                $db->conn->query($sql);
+                $id = $db->conn->insert_id;
+                $this->m_sRestid = $id;
+            } else {
+                //update
+                $this->Update();
+            }
 		}
 		
-		public function Update($id)
+		public function Update()
 		{
 			$db = new Db();
+
+            $query = 'SELECT restaurantownerid FROM restaurant WHERE id = '.$this->m_sRestid;
+            $row = $db->conn->query($query)->fetch_array();
+
+            if ($row['restaurantownerid'] != $_SESSION['login']['id']) {
+                echo 'Goed geprobeerd, hehe :)';
+                exit;
+            }
+
 			$sql = "UPDATE restaurant SET
 					naam = '".$this->m_sRestname."',
 					adres = '".$this->m_sRestadres."',
@@ -230,13 +261,9 @@ class Restaurant
 					vrijdag = '".$this->m_sRestvr."',
 					zaterdag = '".$this->m_sRestza."',
 					zondag = '".$this->m_sRestzo."'
-					where id = " . $id . ";";
+					where id = " . $this->m_sRestid . ";";
 
 			$db->conn->query($sql);
-			
-			
-			header("Location:index.php");
-			
 		}
 	
 		public function Printres()
@@ -249,15 +276,15 @@ class Restaurant
 			if($num_rows === 0)
 			{
 			
-				echo "geen restaurants gevonden";
+				return "geen restaurants gevonden";
 			
 			}
 			else
 			{
-				while($row = mysqli_fetch_array($result))
-					{
+				$row = mysqli_fetch_array($result);
+
 					
-						$id[] = "<div><strong>restaurant naam:</strong> ".$row['naam'] .
+						return "<div><strong>restaurant naam:</strong> ".$row['naam'] .
 								"</br><strong>adres: </strong>". $row['adres'] .
 								"</br><strong>gemeente: </strong>". $row['gemeente'] .
 								"</br><strong>specialiteit: </strong>". $row['specialiteit'] .
@@ -272,24 +299,19 @@ class Restaurant
 								"</br><strong>vrijdag:</strong> ". $row['vrijdag'] .
 								"</br><strong>zaterdag: </strong>". $row['zaterdag'] .
 								"</br><strong>zondag: </strong>". $row['zondag'] . "
-								<a href='remove.php?id=".$row['id']."'>Verwijder dit restaurant</a>
-								<a href='modify.php?id=".$row['id']."'>Restaurant gegevens aanpassen</a></div>";
-								
-					
-					}
-					
-					return $id;
+								<a href='remove_restaurant.php?id=".$row['id']."'>Verwijder dit restaurant</a>
+								<a href='edit_restaurant.php?id=".$row['id']."'>Restaurant gegevens aanpassen</a></div>";
+
 					
 			}
 		}
 		
-		public function Removeres($id)
+		public function delete()
 		{
 		
 			$db = new Db();
-			$sql = "UPDATE restaurant SET showres = 1 where id = " . $id . ";";
+			$sql = "UPDATE restaurant SET showres = 0 where id = " . $this->m_sRestid . ";";
 			$db->conn->query($sql);
-			header("Location:index.php");
 		}
 		
 		public function Modifyres($id)

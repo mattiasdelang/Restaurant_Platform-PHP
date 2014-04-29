@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: 127.0.0.1
--- Gegenereerd op: 25 apr 2014 om 15:38
+-- Gegenereerd op: 29 apr 2014 om 19:05
 -- Serverversie: 5.6.16
 -- PHP-versie: 5.5.9
 
@@ -79,6 +79,30 @@ CREATE TABLE IF NOT EXISTS `restaurantowner` (
 
 INSERT INTO `restaurantowner` (`id`, `firstname`, `lastname`, `email`, `password`, `randomnr`, `verif`) VALUES
 (60, 'mattias', 'delang', 'mattiasdelang@hotmail.com', '64ebaa3c197068d305d7fa4c7d186eb5', 't5a21bb59cbd6d3bce340adfc8b2b416', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `tafel`
+--
+
+CREATE TABLE IF NOT EXISTS `tafel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tafelnummer` int(11) NOT NULL,
+  `plaatsen` int(11) NOT NULL,
+  `restaurantid` int(11) NOT NULL,
+  `ownerid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Gegevens worden uitgevoerd voor tabel `tafel`
+--
+
+INSERT INTO `tafel` (`id`, `tafelnummer`, `plaatsen`, `restaurantid`, `ownerid`) VALUES
+(1, 5, 3, 1, 1),
+(2, 5, 4, 1, 1),
+(3, 5, 6, 1, 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

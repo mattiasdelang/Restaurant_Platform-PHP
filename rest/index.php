@@ -9,11 +9,10 @@
 			header("Location:login.php");
 		
 		}
-	
+
 	$u = new Restaurantowner();
 	$r = new Restaurant();
 	$r->Restownerid = $_SESSION["login"]["id"];
-	$rests=$r->Printres();
 	$mail = $_SESSION["login"]["email"];
 	$uitkomst = $u->Checkverif($mail);
 	
@@ -44,22 +43,45 @@
 <body>
 <?php 
 
-	echo serialize($rests);
+	$restauranten = $r->getByOwnerId($r->Restownerid);
+    if ($restauranten->num_rows == 0) {
+        ?>
+        <div>
+            Geen restauranten gevonden.
+        </div>
+        <?php
+    }else{
+        while ($restaurant = $restauranten->fetch_array()) {
+    ?>
+            <div>
+                <strong>restaurant naam:</strong> <?=$restaurant['naam']?><br>
+                <strong>adres: </strong> <?=$restaurant['adres']?><br>
+                <strong>gemeente: </strong> <?=$restaurant['gemeente']?><br>
+                <strong>specialiteit: </strong> <?=$restaurant['specialiteit']?><br>
+                <strong>website: </strong> <?=$restaurant['website']?><br>
+                <strong>facebook: </strong> <?=$restaurant['facebook']?><br>
+                <strong>mail: </strong> <?=$restaurant['mail']?><br>
+                <strong>telnr: </strong> <?=$restaurant['telnr']?><br>
+                <strong>maandag: </strong> <?=$restaurant['maandag']?><br>
+                <strong>dinsdag: </strong> <?=$restaurant['dinsdag']?><br>
+                <strong>woensdag: </strong> <?=$restaurant['woensdag']?><br>
+                <strong>donderdag: </strong> <?=$restaurant['donderdag']?><br>
+                <strong>vrijdag:</strong> <?=$restaurant['vrijdag']?><br>
+                <strong>zaterdag: </strong> <?=$restaurant['zaterdag']?><br>
+                <strong>zondag: </strong><?=$restaurant['zondag']?><br>
+                <a href="remove_restaurant.php?id=<?=$restaurant['id']?>">Verwijder dit restaurant</a>
+                <a href="tafel.php?id=<?=$restaurant['id']?>">Tafels</a>
+                <a href="edit_restaurant.php?id=<?=$restaurant['id']?>">Restaurant gegevens aanpassen</a></div>
+    <?php
+        }
+    }
 	
-	if($uitkomst == "ok")
-	{
-	
-	
-	
-	}
-	else
-	{
+	if($uitkomst != "ok")
+    {
 		echo	"<form action='' method='post'>
 				<input type='text' name='code'/>
 				<input type='submit' name='klik' value='validate'/>
 				</form>";
-		
-
 	}
 
 ?>
