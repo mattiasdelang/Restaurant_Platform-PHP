@@ -19,62 +19,86 @@ class Menu {
 
     public function setId($id)
     {
+
         $this->id = $id;
+
     }
 
     public function getId()
     {
+
         return $this->id;
+
     }
 
     public function setNaam($naam)
     {
+
         $this->naam = $naam;
+
     }
 
     public function getNaam()
     {
+
         return $this->naam;
+
     }
 
     public function setOmschrijving($omschrijving)
     {
+
         $this->omschrijving = $omschrijving;
+
     }
 
     public function getOmschrijving()
     {
+
         return $this->omschrijving;
+
     }
 
     public function setPrijs($prijs)
     {
+
         $this->prijs = $prijs;
+
     }
 
     public function getPrijs()
     {
+
         return $this->prijs;
+
     }
 
     public function setRestaurantid($restaurantid)
     {
+
         $this->restaurantid = $restaurantid;
+
     }
 
     public function getRestaurantid()
     {
+
         return $this->restaurantid;
+
     }
 
     public function setType($type)
     {
+
         $this->type = $type;
+
     }
 
     public function getType()
     {
+
         return $this->type;
+
     }
 
     public function save()

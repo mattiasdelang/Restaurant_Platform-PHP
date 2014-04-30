@@ -16,23 +16,25 @@
 			{
 			
 				$r = new Restaurant();
-				$r->Restname = $_POST["naam"];
-				$r->Restadres = $_POST["adres"];
-				$r->Restgem = $_POST["gemeente"];
-				$r->Restspec = $_POST["specialiteit"];
-				$r->Restsite = $_POST["website"];
-				$r->Restfb = $_POST["facebook"];
-				$r->Restnr = $_POST["telnr"];
-				$r->Restmail = $_POST["email"];
-				
-				$r->Restma = $_POST["maan"];
-				$r->Restdi = $_POST["dins"];
-				$r->Restwo = $_POST["woens"];
-				$r->Restdo = $_POST["dond"];
-				$r->Restvr = $_POST["vrij"];
-				$r->Restza = $_POST["zat"];
-				$r->Restzo = $_POST["zon"];
-				$r->Restownerid = $_SESSION["login"]["id"];
+                $r->setRestname($_POST["naam"]);
+                $r->setRestadres ($_POST["adres"]);
+                $r->setRestgem ($_POST["gemeente"]);
+                $r->setRestspec ($_POST["specialiteit"]);
+                $r->setRestsite ($_POST["website"]);
+                $r->setRestfb ($_POST["facebook"]);
+                $r->setRestnr ($_POST["telnr"]);
+                $r->setRestmail ($_POST["email"]);
+
+                $r->setRestma ($_POST["maan"]);
+                $r->setRestdi ($_POST["dins"]);
+                $r->setRestwo ($_POST["woens"]);
+                $r->setRestdo ($_POST["dond"]);
+                $r->setRestvr ($_POST["vrij"]);
+                $r->setRestza ($_POST["zat"]);
+                $r->setRestzo ($_POST["zon"]);
+
+                $id=$_SESSION["login"]["id"];
+				$r->setRestownerid($id) ;
 				$r->Save();
 
                 header('Location: index.php');

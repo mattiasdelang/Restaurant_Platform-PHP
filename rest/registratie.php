@@ -3,31 +3,34 @@
 	include_once("classes/restaurantowner.class.php");
 	if(!isset($_SESSION["login"]))
 		{
-		
+
 			header("Location:login.php");
-		
+
 		}
 	if(!empty($_POST["register"]))
 	{
 		try
 		{
+
 			$u = new Restaurantowner();
-			$u->Lastname = $_POST["lastname"];
-			$u->Firstname = $_POST["firstname"];
-			$u->Email = $_POST["email"];
+			$u->setLastname($_POST["lastname"]);
+			$u->setFirstname($_POST["firstname"]);
+			$u->setEmail($_POST["email"]);
 			$u->Checkmail();
-			$u->Password = $_POST["password"];
-			$u->Passcheck = $_POST["passcheck"];
-			$u->Random = substr( "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" ,mt_rand( 0 ,50 ) ,1 ) .substr( md5( time() ), 1);
+			$u->setPassword( $_POST["password"]);
+			$u->setPasscheck($_POST["passcheck"]);
+			$u->setRandom(substr( "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" ,mt_rand( 0 ,50 ) ,1 ) .substr( md5( time() ), 1));
 			$u->Sendmail($_POST["email"]);
 			$u->Save();
 			$result="Account succesvol aangemaakt.";
+            header("refresh:2;url=index.php");
+
 		}
 		catch (Exception $e)
 		{
-		
-		$error = $e->getMessage();
-		
+
+	    	$error = $e->getMessage();
+
 		}
 	
 	}
@@ -43,19 +46,25 @@
 	<title>Register here</title>
 	<script>
 
-	function myFunction() {
+	function myFunction()
+    {
 		var pass1 = document.getElementById("password").value;
 		var pass2 = document.getElementById("passcheck").value;
 		var ok = true;
-		if (pass1 != pass2) {
+		if (pass1 != pass2)
+        {
 			
 			document.getElementById("password").style.borderColor = "#E34234";
 			document.getElementById("passcheck").style.borderColor = "#E34234";
 			ok = false;
+
 		}
-		else {
+		else
+        {
+
 			document.getElementById("password").style.borderColor = "green";
 			document.getElementById("passcheck").style.borderColor = "green";
+
 		}
 		return ok;
 	}

@@ -3,123 +3,154 @@ include_once("db.class.php");
 class Restaurantowner
 {
 
-	private $m_sLastname;
-	private $m_sFirstname;
-	private $m_sEmail;
-	private $m_sPassword;
-	private $m_sPasscheck;
-	private $m_sSalt = 'ezvzeéùµùµµ(21154.$ùù$ù';
-	private $m_sRandom;
-	private $m_sCode;
-	
-	
-	public function __set($p_sProperty, $p_vValue)
-			{
-				switch($p_sProperty)
-					{	
-						case "Lastname":
-							$this->m_sLastname = $p_vValue;						
-						break;
-						
-						case "Firstname":
-							$this->m_sFirstname = $p_vValue;						
-						break;
-						
-						case "Email":
-							$this->m_sEmail = $p_vValue;						
-						break;
-						
-						case "Password":
-						if(strlen($p_vValue) < 9)
-							{
-								throw new Exception("Password must be atleast 8 characters long.");
-							}
-						$this->m_sPassword = md5($p_vValue.$this->m_sSalt);								
-						break;
-						
-						case "Passcheck":
-						if(strlen($p_vValue) < 9)
-							{
-								throw new Exception("Password must be atleast 8 characters long.");
-							}
-						$this->m_sPasscheck = md5($p_vValue.$this->m_sSalt);								
-						break;
-						
-						case "Random":
-							$this->m_sRandom = $p_vValue;						
-						break;
-						
-						case "Code":
-							$this->m_sCode = $p_vValue;						
-						break;
-				
-					}
+	private $Lastname;
+	private $Firstname;
+    private $Email;
+    private $Password;
+    private $Passcheck;
+    private $Random;
+    private $Code;
+    private $Salt = 'ezvzeéùµùµµ(21154.$ùù$ù';
+
+    public function setCode($Code)
+    {
+
+        $this->Code = $Code;
+
+    }
+
+    public function getCode()
+    {
+
+        return $this->Code;
+
+    }
+
+    public function setEmail($Email)
+    {
+
+        $this->Email = $Email;
+
+    }
+
+    public function getEmail()
+    {
+
+        return $this->Email;
+
+    }
+
+    public function setFirstname($Firstname)
+    {
+
+        $this->Firstname = $Firstname;
+
+    }
+
+    public function getFirstname()
+    {
+
+        return $this->Firstname;
+
+    }
+
+    public function setLastname($Lastname)
+    {
+
+        $this->Lastname = $Lastname;
+
+    }
+
+    public function getLastname()
+    {
+
+        return $this->Lastname;
+
+    }
+
+    public function setPasscheck($Passcheck)
+    {
+
+        if(strlen($Passcheck) < 9)
+        {
+
+            throw new Exception("Password must be atleast 8 characters long.");
+
+        }
+
+        $this->Passcheck = md5($Passcheck.$this->Salt);
+
+    }
+
+    public function getPasscheck()
+    {
+
+        return $this->Passcheck;
+
+    }
+
+    public function setPassword($Password)
+    {
+
+        if(strlen($Password) < 9)
+        {
+
+            throw new Exception("Password must be atleast 8 characters long.");
+
+        }
+
+        $this->Password = md5($Password.$this->Salt);
+
+    }
+
+    public function getPassword()
+    {
+
+        return $this->Password;
+
+    }
+
+    public function setRandom($Random)
+    {
+
+        $this->Random = $Random;
+
+    }
+
+    public function getRandom()
+    {
+
+        return $this->Random;
+
+    }
 
 
-			}
-			
-		public function __get($p_sProperty)
-			{
-				switch($p_sProperty)
-					{	
-						case "Lastname":
-							return $this->m_sLastname;						
-						break;
-						
-						case "Firstname":
-							return $this->m_sFirstname;						
-						break;
-						
-						case "Email":
-							return $this->m_sEmail;							
-						break;
-						
-						case "Password":
-							return $this->m_sPassword;								
-						break;
-						
-						case "Passcheck":
-							return $this->m_sPasscheck;								
-						break;
-						
-						case "Random":
-							return $this->m_sRandom;								
-						break;
-						
-						case "Code":
-							return $this->m_sCode;								
-						break;
-				
-					}
-			
-			
-			}
-			
 		public function Save()
 		{
+
 			$db = new Db();
 			$sql = "insert into restaurantowner (firstname,lastname,email,password,randomnr) values(
-					'".$this->m_sFirstname."',
-					'".$this->m_sLastname."',
-					'".$this->m_sEmail."',
-					'".$this->m_sPassword."',
-					'".$this->m_sRandom."'
+					'".$this->Firstname."',
+					'".$this->Lastname."',
+					'".$this->Email."',
+					'".$this->Password."',
+					'".$this->Random."'
 					);";
 
 			$db->conn->query($sql);
 			
-			$_SESSION["login"]["email"] = $this->m_sEmail;
-			$_SESSION["login"]["password"] = $this->m_sPassword;
-			header("refresh:2;url=index.php");
-			
+			$_SESSION["login"]["email"] = $this->Email;
+			$_SESSION["login"]["password"] = $this->Password;
+
 		}
 	
 		public function Checklogin()
 		{
 		
 			$db = new Db();
-			$sql = "Select * From restaurantowner where email = '" . $this->m_sEmail . "' and password = '" . $this->m_sPassword."';";
+			$sql = "Select * From restaurantowner where email = '" . $this->Email . "' and password = '" . $this->Password."';";
 			$result = $db->conn->query($sql);
+
 			if($result === false)
 			{
 			
@@ -132,22 +163,24 @@ class Restaurantowner
 				
 				if($rows === 1)
 				{
+
 					while($row = mysqli_fetch_array($result))
 					{
-					
+
 						$id = $row['id'];
-					
+
 					}
-	
-					$_SESSION["login"]["email"] = $this->m_sEmail;
+
+					$_SESSION["login"]["email"] = $this->Email;
 					$_SESSION["login"]["id"] = $id;
-					$_SESSION["login"]["password"] = $this->m_sPassword;
+					$_SESSION["login"]["password"] = $this->Password;
 					header("Location:index.php");
+
 				}
 				else
 				{
 				
-				throw new Exception("Error occured in the proces, contact helpdesk Error #1523");
+				    throw new Exception("Error occurred in the proces, contact helpdesk Error #1523");
 				
 				}
 			}
@@ -159,7 +192,7 @@ class Restaurantowner
 		{
 		
 			$db = new Db();
-			$sql = "Select * From restaurantowner where email = '" . $this->m_sEmail . "';";
+			$sql = "Select * From restaurantowner where email = '" . $this->Email . "';";
 			$result = $db->conn->query($sql);
 			$rs =$result->num_rows;
 			
@@ -169,13 +202,6 @@ class Restaurantowner
 				throw new Exception("Er bestaat al een account met dit mailadres");
 			
 			}
-			else
-			{
-			
-				
-			
-			}
-			
 		
 		}
 		
@@ -192,19 +218,23 @@ class Restaurantowner
 			$lastname = "moderatorteam";
 			
 			$email = 'no-reply@restapp.be';
-			$bericht = 		"Geachte Mevr/Mr " . $this->m_sLastname . "\r\n \r\n Deze mail wordt automatisch verzonden wanneer u registreerd op restaurant-app.\r\n Om je account te bevestigen,
+			$bericht = 		"Geachte Mevr/Mr " . $this->Lastname . "\r\n \r\n Deze mail wordt automatisch verzonden wanneer u registreerd op restaurant-app.\r\n Om je account te bevestigen,
 							moet je volgende reeks karakters kopieren en invullen in het daarvoor voorbehouden inputvenstertje.\r\n
-							".$this->m_sRandom."\r\n \r\n Gelieve niet te reageren op deze mail, je antwoord zal nooit gelezen worden.\r\n\r\n Het moderatorteam\r\n\r\n";
+							".$this->Random."\r\n \r\n Gelieve niet te reageren op deze mail, je antwoord zal nooit gelezen worden.\r\n\r\n Het moderatorteam\r\n\r\n";
 			
 			$headers .= 'From: ' . $lastname . ' '.'<' . $email . '>';
 	 
 			if(mail($aan, $onderwerp, nl2br($bericht), $headers))
 			{
+
 				header("Location:index.php");
+
 			}
 			else
 			{
+
 				throw new Exception('Helaas, er is wat fout gegaan tijdens het verzenden van de verificatiemail.');
+
 			}
 			
 		}
@@ -251,7 +281,7 @@ class Restaurantowner
 				
 			}
 			
-			if($this->m_sCode == $trol)
+			if($this->Code == $trol)
 			{
 			
 				$sql1 = "UPDATE restaurantowner SET verif=1 where email = '" . $mail . "';";
@@ -267,9 +297,4 @@ class Restaurantowner
 		}
 
 
-
-
-
-
 }
-?>

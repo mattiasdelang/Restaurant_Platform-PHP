@@ -13,16 +13,22 @@ include_once("classes/restaurant.class.php");
 include_once("classes/tafel.class.php");
 include_once("classes/menu.class.php");
 
-if(!isset($_SESSION["login"])){
+if(!isset($_SESSION["login"]))
+{
+
     header("Location:login.php");
     exit;
+
 }
 
 $restaurantid = $_GET['id'];
 
 if(isset($_POST["create"]))
 {
-    foreach ($_POST['naam'] as $index => $naam) {
+
+    foreach ($_POST['naam'] as $index => $naam)
+    {
+
         $omschrijving = $_POST['omschrijving'][$index];
         $type = $_POST['type'][$index];
         $prijs= $_POST['prijs'][$index];
@@ -40,7 +46,6 @@ if(isset($_POST["create"]))
 
     header("location:show_menu.php?id=".$restaurantid);
     exit;
-
 
 }
 ?>
@@ -62,6 +67,7 @@ if(isset($_POST["create"]))
 <?php
 if(isset($_POST["toonform"]))
 {
+
 ?>
 <form action="" method="post">
 <?php
@@ -69,16 +75,19 @@ if(isset($_POST["toonform"]))
 ?>
     <input type="text" name="naam[]" placeholder="naam">
     <input type="text" name="omschrijving[]" placeholder="omschrijving">
+
     <select name="type[]">
         <option value="Hapje">Hapje</option>
         <option value="Voorgerecht">Voorgerecht</option>
         <option value="Hoofgerecht">Hoofgerecht</option>
         <option value="Desert">Desert</option>
     </select>
+
     <input type="text" name="prijs[]" placeholder="prijs">
     <hr /><br />
 <?php
-    }
+
+}
 ?>
     <input type="submit" name="create" value="aanmaken">
 </form>

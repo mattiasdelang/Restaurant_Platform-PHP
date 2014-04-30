@@ -12,26 +12,18 @@
 
 	$u = new Restaurantowner();
 	$r = new Restaurant();
-	$r->Restownerid = $_SESSION["login"]["id"];
+	$id = $_SESSION["login"]["id"];
+    $r->setRestownerid($id);
 	$mail = $_SESSION["login"]["email"];
 	$uitkomst = $u->Checkverif($mail);
 	
 	
 		if(!empty($_POST["klik"]))
 		{
-			try
-			{
-			
-				$u->Code = $_POST["code"];
+
+				$u->setCode($_POST["code"]);
 				$u->Verify($mail);
-			
-			}
-			catch (Exception $e)
-			{
-			
-				$error = $e->getMessage();
-			
-			}
+
 		}
 ?>
 <!doctype html>
@@ -43,15 +35,24 @@
 <body>
 <?php 
 
-	$restauranten = $r->getByOwnerId($r->Restownerid);
-    if ($restauranten->num_rows == 0) {
+
+	$restauranten = $r->getByOwnerId($id);
+
+    if ($restauranten->num_rows == 0)
+    {
         ?>
         <div>
             Geen restauranten gevonden.
         </div>
         <?php
-    }else{
-        while ($restaurant = $restauranten->fetch_array()) {
+
+    }
+    else
+    {
+
+        while ($restaurant = $restauranten->fetch_array())
+        {
+
     ?>
             <div>
                 <strong>restaurant naam:</strong> <?=$restaurant['naam']?><br>
@@ -77,15 +78,19 @@
                 <a href="create_menu.php?id=<?=$restaurant['id']?>">Menu toevoegen</a>
             </div>
     <?php
+
         }
+
     }
 	
 	if($uitkomst != "ok")
     {
+
 		echo	"<form action='' method='post'>
 				<input type='text' name='code'/>
 				<input type='submit' name='klik' value='validate'/>
 				</form>";
+
 	}
 
 ?>
