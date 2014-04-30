@@ -24,8 +24,11 @@ $r = new Restaurant();
 $menugegevens = $m->getById($menuid);
 $restaurantgegevens = $r->getById($menugegevens["restaurantid"]);
 
-if ($restaurantgegevens['restaurantownerid'] != $_SESSION['login']['id']) {
+if ($restaurantgegevens['restaurantownerid'] != $_SESSION['login']['id'])
+{
+
     die('Maakt dus geen reet uit :D');
+
 }
 
 $m->delete($menuid);

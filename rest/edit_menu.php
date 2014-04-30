@@ -13,9 +13,12 @@ include_once("classes/restaurant.class.php");
 include_once("classes/tafel.class.php");
 include_once("classes/menu.class.php");
 
-if(!isset($_SESSION["login"])){
+if(!isset($_SESSION["login"]))
+{
+
     header("Location:login.php");
     exit;
+
 }
 
 $menuid = $_GET['id'];
@@ -53,12 +56,14 @@ if(isset($_POST["aanpassen"]))
 
     <input type="text" name="naam" placeholder="naam" value="<?=$menugegevens['naam']?>">
     <input type="text" name="omschrijving" placeholder="omschrijving" value="<?=$menugegevens['omschrijving']?>">
+
     <select name="type">
         <option value="Hapje" <?=$menugegevens['type'] == "Hapje" ? 'selected="selected"' : '' ?> >Hapje</option>
         <option value="Voorgerecht" <?=$menugegevens['type'] == "Voorgerecht" ? 'selected="selected"' : '' ?>>Voorgerecht</option>
         <option value="Hoofgerecht" <?=$menugegevens['type'] == "Hoofgerecht" ? 'selected="selected"' : '' ?>>Hoofgerecht</option>
         <option value="Desert" <?=$menugegevens['type'] == "Desert" ? 'selected="selected"' : '' ?>>Desert</option>
     </select>
+
     <input type="text" name="prijs" placeholder="prijs" value="<?=$menugegevens['prijs']?>">
     <br />
 

@@ -14,10 +14,12 @@
 		
 		try
 		{
+
 			$u = new Restaurantowner();
-			$u->Email = $_POST["email"];
-			$u->Password =$_POST["password"];
+			$u->setEmail($_POST["email"]);
+			$u->setPassword($_POST["password"]);
 			$u->Checklogin();
+
 		}
 		catch (Exception $e)
 		{
