@@ -1,12 +1,12 @@
 php_project
 ===========
 
-#Registratie done
+###Registratie done
 
-#inloggen done
+###inloggen done
 
-#restaurrant beheren en toevoegen done
+###restaurant beheren en toevoegen done
 
-#menu beheren en toevoegen done
+###menu beheren en toevoegen done
 
-#tafels beheren en toevoegen done
+###tafels beheren en toevoegen done
