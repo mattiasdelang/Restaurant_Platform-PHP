@@ -35,7 +35,7 @@
                 $r->setRestid ($restaurantId);
 				$r->Update();
 
-                header("location:index.php");
+                header("location:modify.php");
 		}
 	
 ?>
@@ -46,6 +46,7 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="css.css">
 	<title>Register here</title>
+    <link rel="stylesheet" type="text/css" href="css.css">
 	
 </head>
 <body>

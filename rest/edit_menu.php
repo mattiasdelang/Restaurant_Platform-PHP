@@ -50,6 +50,7 @@ if(isset($_POST["aanpassen"]))
 <head>
     <meta charset="UTF-8">
     <title>Menu aanpassen</title>
+    <link rel="stylesheet" type="text/css" href="css.css">
 </head>
 <body>
 <form action="" method="post">

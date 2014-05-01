@@ -296,5 +296,14 @@ class Restaurantowner
 			}
 		}
 
+        public function getNaam($id)
+        {
+
+             $db = new db();
+            $query = "select firstname,lastname from restaurantowner where id = $id;";
+            return $db->conn->query($query)->fetch_array();
+
+        }
+
 
 }

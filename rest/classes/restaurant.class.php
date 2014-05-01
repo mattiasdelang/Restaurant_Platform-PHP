@@ -38,6 +38,25 @@ class Restaurant {
 
     }
 
+    public function getAllByGem($gem)
+    {
+
+        $db = new db;
+        if(!$gem)
+        {
+
+            $query = 'SELECT * FROM restaurant;';
+
+        } else
+        {
+
+             $query = 'SELECT * FROM restaurant WHERE gemeente = $gem";';
+
+        }
+        return $db->conn->query($query);
+
+    }
+
     public function getByOwnerId($ownerId)
     {
 

@@ -56,7 +56,7 @@ if (isset($_POST['aanpassen'])){
         $tafel->setRestaurantId($restaurantId);
         $tafel->save();
     }
-    header('Location: index.php');
+    header('Location: modify.php');
     exit;
 }
 

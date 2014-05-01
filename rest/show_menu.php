@@ -28,6 +28,7 @@ $menus = $m->getByRestaurantId($restaurantid);
 <head>
     <meta charset="UTF-8">
     <title>Overzicht menu's</title>
+    <link rel="stylesheet" type="text/css" href="css.css">
 </head>
 <body>
 <?php

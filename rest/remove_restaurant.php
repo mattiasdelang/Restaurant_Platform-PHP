@@ -8,8 +8,10 @@
 		}
 
 	include_once("classes/restaurant.class.php");
+
 	$r = new Restaurant();
+
     $id=$_GET['id'];
 	$r->setRestid($id);
 	$r->delete();
-    header("location:index.php");
+    header("location:modify.php");

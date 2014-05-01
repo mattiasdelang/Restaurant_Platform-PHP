@@ -1,6 +1,11 @@
 #equal
 {
 
-	display:hidden;
+    visibility:hidden;
 
+}
+
+body{
+
+    background-color: lightgray;
 }
