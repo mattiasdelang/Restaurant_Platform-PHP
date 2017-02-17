@@ -10,7 +10,7 @@
 
 ## Explanation
 
-We made this platform for the course: Project 1.
+We made this platform for the course: PHP 1.
 
 It is a platform where people can book a table at any restaurant they want.
 The can pick the table, number of people, the time, the date.
